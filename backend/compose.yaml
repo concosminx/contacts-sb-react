@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    container_name: db
+    environment:
+      - 'POSTGRES_DB=contacts'
+      - 'POSTGRES_PASSWORD=super'
+      - 'POSTGRES_USER=superuser'
+    ports:
+      - '5432:5432'
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    #restart: unless-stopped
+    ports:
+      - '5016:80'
+    user: "$UID:$GID"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=demo@demo.com
+      - PGADMIN_DEFAULT_PASSWORD=password
