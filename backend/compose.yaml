@@ -2,20 +2,25 @@ services:
   postgres:
     image: 'postgres:latest'
     container_name: db
+    restart: unless-stopped
     environment:
       - 'POSTGRES_DB=contacts'
       - 'POSTGRES_PASSWORD=super'
       - 'POSTGRES_USER=superuser'
     ports:
       - '5432:5432'
+    volumes:
+      - ./local_pg_data:/var/lib/postgresql/data  
 
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin4
-    #restart: unless-stopped
+    restart: unless-stopped
     ports:
       - '5016:80'
-    user: "$UID:$GID"
+    #user: "$UID:$GID"
     environment:
       - PGADMIN_DEFAULT_EMAIL=demo@demo.com
       - PGADMIN_DEFAULT_PASSWORD=password
+    volumes:
+      - ./local_pgadmin_data:/var/lib/pgadmin
